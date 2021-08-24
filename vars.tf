@@ -12,6 +12,11 @@ variable "tags" {
   default = {}
 }
 
+variable "allow_self_ingress" {
+  type = bool
+  default = false
+}
+
 variable "ingress_cidr_blocks" {
   type = map(object({
     cidr_blocks = list(string)

@@ -51,3 +51,17 @@ resource "aws_security_group_rule" "ingress_security_groups" {
   from_port = each.value.port
   to_port = each.value.port == 0 ? 65535 : each.value.port  # 0 means "all"
 }
+
+resource "aws_security_group_rule" "ingress_self" {
+  /*
+  Ingress rule for resources under the same security group
+  */
+  count = var.allow_self_ingress ? 1 : 0
+  security_group_id = aws_security_group.main.id
+  type = "ingress"
+  self = true
+  description = "self"
+  protocol = "-1"
+  from_port = 0
+  to_port = 0
+}
