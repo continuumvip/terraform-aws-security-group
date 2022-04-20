@@ -9,6 +9,10 @@ resource "aws_security_group" "main" {
   tags = merge({
     "Name" = var.name
   }, var.tags)
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "egress" {
